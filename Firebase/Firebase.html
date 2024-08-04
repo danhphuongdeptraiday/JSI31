@@ -4,12 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+
+    <script type="module">
+      import { v4 as uuidv4 } from "https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/esm-browser/index.js";
+
+      window.uuidv4 = uuidv4;
+    </script>
   </head>
   <body>
     <input type="text" id="name" placeholder="name" />
     <input type="text" id="age" placeholder="age" />
     <input type="text" id="email" placeholder="email" />
     <button id="add_btn">Add</button>
+    <button id="read_btn">Read</button>
+
+    <div class="email_container"></div>
     <script type="module" src="./Firebase.js"></script>
   </body>
 </html>

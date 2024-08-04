@@ -29,13 +29,41 @@ let nameInput = document.getElementById("name");
 let ageInput = document.getElementById("age");
 let emailInput = document.getElementById("email");
 let add_btn = document.getElementById("add_btn");
+let read_btn = document.getElementById("read_btn");
+
+// ref <=> reference
+// set("Đường dẫn", "Dữ liệu muốn lưu"); // => trả về 1 promise
 
 add_btn.addEventListener("click", function () {
-  set(ref(database, "User/" + "user1"), {
+  let ID = window.uuidv4(); // Tạo ra 1 id khác nhau
+
+  set(ref(database, "User/" + ID), {
+    userId: ID,
     name: nameInput.value,
     age: ageInput.value,
     email: emailInput.value
-  }).then(() => {
-    alert("Success");
+  })
+    .then(() => {
+      alert("Success");
+    })
+    .catch((err) => {
+      alert(err);
+    });
+});
+
+let email_container = document.querySelector(".email_container");
+
+read_btn.addEventListener("click", function () {
+  onValue(ref(database, "User"), (snap) => {
+    let data = snap.val();
+    let newData = Object.values(data);
+    console.log(newData);
+    for (let i = 0; i < newData.length; i++) {
+      let p = document.createElement("p");
+      p.style.color = "red";
+      p.innerText = newData[i].email;
+      email_container.appendChild(p);
+    }
+    // console.log(snap.val());
   });
 });
